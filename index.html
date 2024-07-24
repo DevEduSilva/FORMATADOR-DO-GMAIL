@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Variáveis</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+            flex: 1;
+            min-width: 0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00e676;
+            box-shadow: 0 0 10px #00e676;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 2px solid #4CAF50;
+            background: #4CAF50;
+            color: #fff;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #00e676;
+            border-color: #00e676;
+        }
+
+        #content {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="text"],
+            button {
+                width: 100%;
+                border-radius: 5px;
+            }
+
+            input[type="text"] {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Variáveis</h1>
+
+        <div class="input-group">
+            <input type="text" id="varInput" placeholder="Digite uma variável">
+            <button onclick="addVar()">Adicionar</button>
+        </div>
+
+        <div id="content"></div>
+        <button onclick="copyContent()">Copiar Conteúdo</button>
+    </div>
+
+    <script>
+        let vars = [];
+
+        function addVar() {
+            const varInput = document.getElementById('varInput').value;
+            if (varInput) {
+                vars.push(varInput);
+                document.getElementById('varInput').value = '';  // Limpar o campo de input
+                updateContent();
+            }
+        }
+
+        function updateContent() {
+            const contentDiv = document.getElementById('content');
+            contentDiv.innerHTML = vars.join(' OR ');
+        }
+
+        function copyContent() {
+            const content = document.getElementById('content').innerText;
+            const tempInput = document.createElement('input');
+            tempInput.value = content;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Conteúdo copiado!');
+        }
+    </script>
+</body>
+</html>
